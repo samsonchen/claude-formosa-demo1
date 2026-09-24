@@ -15,29 +15,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Home hero background video. Skipped for reduced motion and Data Saver; the photo stays instead.
-  const heroVideo = document.querySelector('.hero__video[data-src]');
-  const toggle = document.querySelector('.hero__toggle');
+  // Background videos autoplay from their HTML attributes. For reduced motion or Data Saver,
+  // stop them and keep the poster image.
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const saveData = navigator.connection && navigator.connection.saveData;
-  if (heroVideo && !reduceMotion && !saveData) {
-    heroVideo.addEventListener('playing', () => {
-      heroVideo.classList.add('is-playing');
-      if (toggle) toggle.hidden = false;
-    });
-    heroVideo.src = heroVideo.dataset.src;
-    heroVideo.muted = true;
-    heroVideo.play().catch(() => {}); // Autoplay refused: keep showing the photo.
-
-    if (toggle) {
-      toggle.addEventListener('click', () => {
-        const pause = !heroVideo.paused;
-        if (pause) heroVideo.pause(); else heroVideo.play().catch(() => {});
-        toggle.setAttribute('aria-pressed', String(pause));
-        toggle.setAttribute('aria-label', pause ? toggle.dataset.labelPlay : toggle.dataset.labelPause);
-      });
+  document.querySelectorAll('video.bg-video').forEach((video) => {
+    if (reduceMotion || saveData) {
+      video.pause();
+      video.removeAttribute('autoplay');
+      video.preload = 'none';
+      return;
     }
-  }
+    video.muted = true; // Some browsers only honor autoplay when muted is set as a property.
+    video.play().catch(() => {});
+  });
 
   document.querySelectorAll('.film[data-src]').forEach((film) => {
     const button = film.querySelector('.play');

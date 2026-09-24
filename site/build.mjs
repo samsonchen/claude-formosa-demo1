@@ -203,7 +203,6 @@ const T = {
       lead: 'claude.formosa 是台灣的 Claude 使用者社群。每個月最後一個週五晚上，我們在花蓮雲基地辦一場免費小聚，聽幾位夥伴分享他們實際怎麼用 AI。',
       next: `下一場 ${NEXT.short}`, events: '活動回顧',
       alt: '8/28 小聚現場，Edward Kennedy 分享 Hermes Agent',
-      pause: '暫停背景影片', resume: '播放背景影片',
     },
     next: {
       eyebrow: 'NEXT MEETUP · 下一場', when: '週五 · 18:00 – 20:00',
@@ -251,7 +250,6 @@ const T = {
       lead: 'claude.formosa is a Claude user group in Taiwan. On the last Friday of each month we hold a free evening meetup at Hualien Cloud Base, where members show how they actually use AI.',
       next: `NEXT: ${NEXT.enShort}`, events: 'PAST EVENTS',
       alt: 'The August meetup, Edward Kennedy presenting Hermes Agent',
-      pause: 'Pause background video', resume: 'Play background video',
     },
     next: {
       eyebrow: 'NEXT MEETUP', when: 'FRI · 18:00 – 20:00',
@@ -397,13 +395,8 @@ function home(lang) {
   const body = `${nav({ lang, up, overlay: true, current: 'home', alt })}
 <main id="main">
 <section class="hero">
-<img class="hero__img" src="${img('p0828a.jpg')}" alt="${esc(t.hero.alt)}" fetchpriority="high">
-<video class="hero__video" data-src="${up}assets/video/2026-08-28-clip1.mp4" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+<video class="hero__img bg-video" src="${up}assets/video/2026-08-28-clip1.mp4" poster="${img('p0828a.jpg')}" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
 <div class="hero__shade"></div>
-<button class="hero__toggle" type="button" hidden aria-pressed="false" data-label-pause="${esc(t.hero.pause)}" data-label-play="${esc(t.hero.resume)}" aria-label="${esc(t.hero.pause)}">
-<svg class="icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg>
-<svg class="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-</button>
 <div class="hero__body">
 <div class="hero__kicker">${t.hero.kicker}</div>
 <h1 class="${t.cjk ? 'cjk' : 'en'}">${t.hero.title}</h1>
@@ -467,11 +460,10 @@ ${cards}
 </div>
 </section>
 
-<section class="film" data-src="${up}assets/video/2026-08-28-clip2.mp4" aria-label="${esc(t.film.title)}">
-<img class="cover__img" src="${img('p0828c.jpg')}" alt="${esc(t.film.alt)}" loading="lazy">
+<section class="film film--bg" aria-label="${esc(t.film.title)}">
+<video class="cover__img bg-video" src="${up}assets/video/2026-08-28-clip2.mp4" poster="${img('p0828c.jpg')}" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
 <div class="film__shade"></div>
 <div class="film__body">
-<button class="play" type="button" aria-label="${esc(t.film.play)}">${PLAY(30)}</button>
 <div class="hero__kicker">${t.film.eyebrow}</div>
 <div class="film__title${t.cjk ? ' cjk' : ' en'}">${t.film.title}</div>
 </div>
